@@ -77,6 +77,13 @@ details[open] summary::after{content:" \2212"}
 .contact a:hover{border-bottom-color:var(--accent)}
 .contact a + a{margin-top:8px}
 
+
+/* press-and-hold reveal */
+.hold{position:relative;overflow:hidden;font:inherit;font-size:clamp(18px,1.8vw,22px);font-weight:400;letter-spacing:.02em;color:var(--ink);background:transparent;border:1px solid var(--accent);padding:18px 28px;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:none}
+.hold-fill{position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;opacity:.28}
+.hold-label{position:relative}
+.hold-hint{margin:14px 0 0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
+
 /* title block */
 .titleblock{border-top:1px solid var(--line);margin-top:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .titleblock div{padding:18px 16px 28px 0;border-right:1px solid var(--line);margin-right:16px}
@@ -95,7 +102,7 @@ details[open] summary::after{content:" \2212"}
 <div class="frame">
   <header class="top">
     <img src="assets/logo-nav.png" width="440" height="178" alt="Journey Engineering">
-    <a class="mail" href="mailto:irj@journey-eng.com">Contact</a>
+    <a class="mail" href="#contact">Contact</a>
   </header>
 
   <main>
@@ -153,8 +160,11 @@ details[open] summary::after{content:" \2212"}
       <div>
         <h2 class="big" style="margin-bottom:48px"><span class="soft">Bring us in early.</span><strong>That is where the savings are.</strong></h2>
         <p class="note" style="margin:-24px 0 40px">Knowledge from the field. Fees that make sense. A scope you can read in one sitting.</p>
-        <a href="mailto:irj@journey-eng.com">irj@journey-eng.com</a>
-        <a href="tel:+16613317520">661 331 7520</a>
+        <div id="reveal" data-e="bW9jLmduZS15ZW5ydW9qQGpyaQ==" data-p="MDI1NzEzMzE2NjEr" data-pd="MDI1NyAxMzMgMTY2">
+          <button type="button" class="hold" id="holdbtn"><span class="hold-fill" aria-hidden="true"></span><span class="hold-label">Press and hold to show contact</span></button>
+          <p class="hold-hint">A small check to keep automated spam out.</p>
+        </div>
+        <noscript><p class="note">Turn on JavaScript to view contact details.</p></noscript>
       </div>
     </section>
   </main>
@@ -177,6 +187,27 @@ details[open] summary::after{content:" \2212"}
   if(!('IntersectionObserver' in window)||!cur)return;
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)cur.textContent=e.target.dataset.sheet;});},{rootMargin:'-45% 0px -50% 0px'});
   document.querySelectorAll('[data-sheet]').forEach(function(s){io.observe(s);});
+})();
+</script>
+
+<script>
+(function(){
+  var box=document.getElementById('reveal'),btn=document.getElementById('holdbtn');
+  if(!box||!btn)return;
+  var fill=btn.querySelector('.hold-fill'),dur=1200,start=0,raf=0,done=false;
+  function dec(x){return atob(x).split('').reverse().join('');}
+  function show(){done=true;
+    var e=dec(box.dataset.e),p=dec(box.dataset.p),pd=dec(box.dataset.pd);
+    box.innerHTML='';
+    var a=document.createElement('a');a.href='mailto:'+e;a.textContent=e;
+    var b=document.createElement('a');b.href='tel:'+p;b.textContent=pd;
+    box.appendChild(a);box.appendChild(b);}
+  function tick(t){if(!start)start=t;var k=Math.min((t-start)/dur,1);fill.style.transform='scaleX('+k+')';
+    if(k>=1){show();return;}raf=requestAnimationFrame(tick);}
+  function down(ev){if(done)return;if(ev.type==='keydown'&&ev.key!==' '&&ev.key!=='Enter')return;if(ev.repeat)return;ev.preventDefault();start=0;cancelAnimationFrame(raf);raf=requestAnimationFrame(tick);}
+  function up(){if(done)return;cancelAnimationFrame(raf);start=0;fill.style.transform='scaleX(0)';}
+  btn.addEventListener('pointerdown',down);btn.addEventListener('keydown',down);
+  ['pointerup','pointerleave','pointercancel','keyup','blur'].forEach(function(n){btn.addEventListener(n,up);});
 })();
 </script>
 </body>
