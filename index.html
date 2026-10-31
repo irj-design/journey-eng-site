@@ -36,7 +36,8 @@ a{color:inherit}
 
 /* top bar */
 .top{display:flex;justify-content:space-between;align-items:center;padding-block:28px}
-.top img{width:132px;height:auto;display:block}
+.top img{width:200px;height:auto;display:block}
+@media (max-width:760px){.top img{width:150px}}
 .top a.mail{font-size:14px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--muted)}
 .top a.mail:hover{color:var(--ink)}
 
@@ -52,15 +53,15 @@ a{color:inherit}
 
 /* cover */
 .cover{border-top:0;padding-top:clamp(64px,12vh,140px)}
-.air{position:relative;height:180px;margin-top:56px;display:flex;align-items:flex-end;gap:18px}
-.air .lines{position:relative;flex:1;height:64px;margin-bottom:22px;overflow:hidden}
+.air{position:relative;height:250px;margin-top:56px;display:flex;align-items:flex-end;gap:18px}
+.air .lines{position:relative;flex:1;height:64px;margin-bottom:32px;overflow:hidden}
 .air i{position:absolute;right:0;height:2px;border-radius:2px;background:var(--ink);opacity:.55;animation:drift 9s ease-in-out infinite}
 .air i:nth-child(1){top:6px;width:22%;animation-delay:0s}
 .air i:nth-child(2){top:20px;width:38%;animation-delay:.6s}
 .air i:nth-child(3){top:34px;width:56%;animation-delay:1.2s}
 .air i:nth-child(4){top:48px;width:78%;animation-delay:1.8s}
-.air .tree{width:55px;height:auto;flex:none;display:block}
-@media (max-width:760px){.air{height:130px;margin-top:40px}.air .tree{width:40px}.air .lines{margin-bottom:16px}}
+.air .tree{width:76px;height:auto;flex:none;display:block}
+@media (max-width:760px){.air{height:170px;margin-top:40px}.air .tree{width:52px}.air .lines{margin-bottom:22px}}
 @keyframes drift{0%,100%{transform:translateX(0);opacity:.55}50%{transform:translateX(-4%);opacity:.25}}
 @media (prefers-reduced-motion:reduce){.air i{animation:none}html{scroll-behavior:auto}}
 
@@ -92,18 +93,20 @@ details[open] summary::after{content:" \2212"}
 .hold-hint{margin:14px 0 0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
 
 /* title block */
-.titleblock{border-top:1px solid var(--line);margin-top:0;display:grid;grid-template-columns:44px repeat(6,minmax(0,1fr));font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.titleblock{border-top:1px solid var(--line);margin-top:0;display:grid;grid-template-columns:52px repeat(6,minmax(0,1fr));font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .titleblock div{padding:18px 16px 28px 0;border-right:1px solid var(--line);margin-right:16px}
 .titleblock div:last-child{border-right:0}
 .titleblock b{display:block;color:var(--ink);font-weight:500;margin-top:6px;letter-spacing:.12em}
 @media (max-width:760px){.titleblock{grid-template-columns:repeat(2,minmax(0,1fr))}.titleblock div{border-right:0}}
 
 .titleblock .tb-mark{padding:16px 0 20px;margin-right:16px;border-right:1px solid var(--line)}
-.titleblock .tb-mark img{width:18px;height:auto;display:block;opacity:.85}
+.titleblock .tb-mark img{width:24px;height:auto;display:block;opacity:.85}
 @media (max-width:760px){.titleblock .tb-mark{display:none}}
 /* live sheet number */
 .sheetno{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--ground-deep);border:1px solid var(--line);padding:10px 14px;font-variant-numeric:tabular-nums;z-index:5}
 .sheetno b{color:var(--accent);font-weight:600}
+.sheetno.on-cover{opacity:0;pointer-events:none}
+.sheetno{transition:opacity .3s ease}
 @media (max-width:760px){.sheetno{display:none}}
 </style>
 
@@ -190,13 +193,13 @@ details[open] summary::after{content:" \2212"}
   </footer>
 </div>
 
-<div class="sheetno" aria-hidden="true">Sheet <b id="sheetcur">M0.0</b> of M5.0</div>
+<div class="sheetno on-cover" aria-hidden="true">Sheet <b id="sheetcur">M0.0</b> of M5.0</div>
 
 <script>
 (function(){
   var cur=document.getElementById('sheetcur');
   if(!('IntersectionObserver' in window)||!cur)return;
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)cur.textContent=e.target.dataset.sheet;});},{rootMargin:'-45% 0px -50% 0px'});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){cur.textContent=e.target.dataset.sheet;cur.parentNode.classList.toggle('on-cover',e.target.dataset.sheet==='M0.0');}});},{rootMargin:'-45% 0px -50% 0px'});
   document.querySelectorAll('[data-sheet]').forEach(function(s){io.observe(s);});
 })();
 </script>
