@@ -9,13 +9,17 @@
 <meta name="theme-color" content="#095256">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preload" href="assets/Outfit-Light.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/Outfit-SemiBold.woff" as="font" type="font/woff" crossorigin>
+<link rel="canonical" href="https://journey-eng.com/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Journey Engineering, Inc.","url":"https://journey-eng.com/","description":"HVAC, plumbing, energy code compliance and commissioning for buildings on California's Central Coast and Central Valley.","areaServed":["Central Coast, California","Central Valley, California"],"founder":{"@type":"Person","name":"Ian Journey, P.E."},"knowsAbout":["HVAC design","Plumbing design","Title 24 energy code compliance","Building commissioning"]}</script>
 <title>Not found | Journey Engineering</title>
 <meta name="description" content="A building is never finished. HVAC, plumbing, energy code compliance and commissioning on the Central Coast and Central Valley, California.">
 <style>
-@font-face{font-family:"Outfit";src:url(assets/Outfit-Light.ttf) format("truetype");font-weight:300;font-display:swap}
-@font-face{font-family:"Outfit";src:url(assets/Outfit-Regular.ttf) format("truetype");font-weight:400;font-display:swap}
-@font-face{font-family:"Outfit";src:url(assets/Outfit-Medium.ttf) format("truetype");font-weight:500;font-display:swap}
-@font-face{font-family:"Outfit";src:url(assets/Outfit-SemiBold.ttf) format("truetype");font-weight:600;font-display:swap}
+@font-face{font-family:"Outfit";src:url(assets/Outfit-Light.woff) format("woff");font-weight:300;font-display:swap}
+@font-face{font-family:"Outfit";src:url(assets/Outfit-Regular.woff) format("woff");font-weight:400;font-display:swap}
+@font-face{font-family:"Outfit";src:url(assets/Outfit-Medium.woff) format("woff");font-weight:500;font-display:swap}
+@font-face{font-family:"Outfit";src:url(assets/Outfit-SemiBold.woff) format("woff");font-weight:600;font-display:swap}
 /* Layout: a drawing set. Each statement is a sheet (M0.0 to M5.0) on a Midnight ground, hairline borders, a live title block. */
 :root{
   --ground:#095256; --ground-deep:#063b3e; --ink:#f5dfbb; --muted:#a9c3bf; --line:#1c6a6e; --accent:#e09f3e;
@@ -48,12 +52,15 @@ a{color:inherit}
 
 /* cover */
 .cover{border-top:0;padding-top:clamp(64px,12vh,140px)}
-.air{position:relative;height:64px;margin-top:64px;overflow:hidden}
+.air{position:relative;height:180px;margin-top:56px;display:flex;align-items:flex-end;gap:18px}
+.air .lines{position:relative;flex:1;height:64px;margin-bottom:22px;overflow:hidden}
 .air i{position:absolute;right:0;height:2px;border-radius:2px;background:var(--ink);opacity:.55;animation:drift 9s ease-in-out infinite}
-.air i:nth-child(1){top:6px;width:18%;animation-delay:0s}
-.air i:nth-child(2){top:20px;width:31%;animation-delay:.6s}
-.air i:nth-child(3){top:34px;width:47%;animation-delay:1.2s}
-.air i:nth-child(4){top:48px;width:66%;animation-delay:1.8s}
+.air i:nth-child(1){top:6px;width:22%;animation-delay:0s}
+.air i:nth-child(2){top:20px;width:38%;animation-delay:.6s}
+.air i:nth-child(3){top:34px;width:56%;animation-delay:1.2s}
+.air i:nth-child(4){top:48px;width:78%;animation-delay:1.8s}
+.air .tree{width:55px;height:auto;flex:none;display:block}
+@media (max-width:760px){.air{height:130px;margin-top:40px}.air .tree{width:40px}.air .lines{margin-bottom:16px}}
 @keyframes drift{0%,100%{transform:translateX(0);opacity:.55}50%{transform:translateX(-4%);opacity:.25}}
 @media (prefers-reduced-motion:reduce){.air i{animation:none}html{scroll-behavior:auto}}
 
@@ -77,13 +84,23 @@ details[open] summary::after{content:" \2212"}
 .contact a:hover{border-bottom-color:var(--accent)}
 .contact a + a{margin-top:8px}
 
+
+/* press-and-hold reveal */
+.hold{position:relative;overflow:hidden;font:inherit;font-size:clamp(18px,1.8vw,22px);font-weight:400;letter-spacing:.02em;color:var(--ink);background:transparent;border:1px solid var(--accent);padding:18px 28px;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:none}
+.hold-fill{position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;opacity:.28}
+.hold-label{position:relative}
+.hold-hint{margin:14px 0 0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
+
 /* title block */
-.titleblock{border-top:1px solid var(--line);margin-top:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.titleblock{border-top:1px solid var(--line);margin-top:0;display:grid;grid-template-columns:44px repeat(6,minmax(0,1fr));font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .titleblock div{padding:18px 16px 28px 0;border-right:1px solid var(--line);margin-right:16px}
 .titleblock div:last-child{border-right:0}
 .titleblock b{display:block;color:var(--ink);font-weight:500;margin-top:6px;letter-spacing:.12em}
 @media (max-width:760px){.titleblock{grid-template-columns:repeat(2,minmax(0,1fr))}.titleblock div{border-right:0}}
 
+.titleblock .tb-mark{padding:16px 0 20px;margin-right:16px;border-right:1px solid var(--line)}
+.titleblock .tb-mark img{width:18px;height:auto;display:block;opacity:.85}
+@media (max-width:760px){.titleblock .tb-mark{display:none}}
 /* live sheet number */
 .sheetno{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--ground-deep);border:1px solid var(--line);padding:10px 14px;font-variant-numeric:tabular-nums;z-index:5}
 .sheetno b{color:var(--accent);font-weight:600}
