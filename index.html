@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Journey Engineering">
+<meta property="og:description" content="A building is never finished. Design for what comes after.">
+<meta property="og:image" content="https://journey-eng.com/assets/og-image.jpg">
+<meta name="theme-color" content="#095256">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<title>Journey Engineering</title>
+<meta name="description" content="A building is never finished. HVAC, plumbing, energy code compliance and commissioning on the Central Coast and Central Valley, California.">
+<style>
+@font-face{font-family:"Outfit";src:url(assets/Outfit-Light.ttf) format("truetype");font-weight:300;font-display:swap}
+@font-face{font-family:"Outfit";src:url(assets/Outfit-Regular.ttf) format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Outfit";src:url(assets/Outfit-Medium.ttf) format("truetype");font-weight:500;font-display:swap}
+@font-face{font-family:"Outfit";src:url(assets/Outfit-SemiBold.ttf) format("truetype");font-weight:600;font-display:swap}
+/* Layout: a drawing set. Each statement is a sheet (M0.0 to M5.0) on a Midnight ground, hairline borders, a live title block. */
+:root{
+  --ground:#095256; --ground-deep:#063b3e; --ink:#f5dfbb; --muted:#a9c3bf; --line:#1c6a6e; --accent:#e09f3e;
+  --sans:"Outfit","Avenir Next","Segoe UI",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.nw{white-space:nowrap}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.frame{max-width:1280px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:center;padding-block:28px}
+.top img{width:132px;height:auto;display:block}
+.top a.mail{font-size:14px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--muted)}
+.top a.mail:hover{color:var(--ink)}
+
+/* sheets */
+.sheet{border-top:1px solid var(--line);padding-block:clamp(88px,16vh,180px);display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,5fr);gap:32px;position:relative}
+@media (max-width:760px){.sheet{grid-template-columns:minmax(0,1fr);gap:20px;padding-block:72px}}
+.tag{font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);padding-top:14px;font-variant-numeric:tabular-nums}
+.tag b{display:block;color:var(--accent);font-weight:500;letter-spacing:.18em;margin-bottom:6px}
+.big{margin:0;font-weight:300;font-size:clamp(40px,7.2vw,104px);line-height:1.02;letter-spacing:-.025em;text-wrap:balance}
+.big strong{font-weight:600;color:var(--accent)}
+.big .soft{display:block}
+.note{margin:36px 0 0;max-width:46ch;font-size:clamp(17px,1.5vw,20px);line-height:1.6;color:var(--muted);font-weight:300}
+
+/* cover */
+.cover{border-top:0;padding-top:clamp(64px,12vh,140px)}
+.air{position:relative;height:64px;margin-top:64px;overflow:hidden}
+.air i{position:absolute;right:0;height:2px;border-radius:2px;background:var(--ink);opacity:.55;animation:drift 9s ease-in-out infinite}
+.air i:nth-child(1){top:6px;width:18%;animation-delay:0s}
+.air i:nth-child(2){top:20px;width:31%;animation-delay:.6s}
+.air i:nth-child(3){top:34px;width:47%;animation-delay:1.2s}
+.air i:nth-child(4){top:48px;width:66%;animation-delay:1.8s}
+@keyframes drift{0%,100%{transform:translateX(0);opacity:.55}50%{transform:translateX(-4%);opacity:.25}}
+@media (prefers-reduced-motion:reduce){.air i{animation:none}html{scroll-behavior:auto}}
+
+/* scope */
+.scope{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.scope li{font-size:clamp(34px,5.4vw,76px);line-height:1.08;letter-spacing:-.02em;font-weight:300}
+.scope li:nth-child(odd){font-weight:600}
+.fine{margin-top:40px;display:flex;flex-wrap:wrap;gap:10px 28px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500}
+
+/* index of work */
+details{margin-top:48px;border-top:1px solid var(--line);padding-top:20px;max-width:900px}
+summary{cursor:pointer;list-style:none;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500}
+summary::-webkit-details-marker{display:none}
+summary::after{content:" +";color:var(--accent)}
+details[open] summary::after{content:" \2212"}
+.index{margin:20px 0 0;font-size:16px;line-height:1.9;color:var(--muted)}
+.index span{color:var(--ink)}
+
+/* contact */
+.contact a{display:block;text-decoration:none;font-size:clamp(28px,4.4vw,60px);line-height:1.15;letter-spacing:-.02em;font-weight:300;width:fit-content;border-bottom:1px solid transparent}
+.contact a:hover{border-bottom-color:var(--accent)}
+.contact a + a{margin-top:8px}
+
+/* title block */
+.titleblock{border-top:1px solid var(--line);margin-top:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.titleblock div{padding:18px 16px 28px 0;border-right:1px solid var(--line);margin-right:16px}
+.titleblock div:last-child{border-right:0}
+.titleblock b{display:block;color:var(--ink);font-weight:500;margin-top:6px;letter-spacing:.12em}
+@media (max-width:760px){.titleblock{grid-template-columns:repeat(2,minmax(0,1fr))}.titleblock div{border-right:0}}
+
+/* live sheet number */
+.sheetno{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--ground-deep);border:1px solid var(--line);padding:10px 14px;font-variant-numeric:tabular-nums;z-index:5}
+.sheetno b{color:var(--accent);font-weight:600}
+@media (max-width:760px){.sheetno{display:none}}
+</style>
+
+</head>
+<body>
+<div class="frame">
+  <header class="top">
+    <img src="assets/logo-nav.png" width="440" height="178" alt="Journey Engineering">
+    <a class="mail" href="mailto:irj@journey-eng.com">Contact</a>
+  </header>
+
+  <main>
+    <section class="sheet cover" data-sheet="M0.0" data-comment-target>
+      <div class="tag"><b>M0.0</b>Cover</div>
+      <div>
+        <h1 class="big"><span class="soft">A building is never finished.</span><strong>Design for what comes after.</strong></h1>
+        <p class="note">HVAC, plumbing, energy code compliance and commissioning. Central Coast and Central Valley, California.</p>
+        <div class="air" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </div>
+    </section>
+    <section class="sheet" data-sheet="M1.0" data-comment-target>
+      <div class="tag"><b>M1.0</b>Learn by doing</div>
+      <div>
+        <h2 class="big"><span class="soft">Learn by doing.</span><strong>We did it in that order.</strong></h2>
+        <p class="note">Ian Journey grew up in the trade, fabricating and installing the systems he now designs. Then Cal Poly San Luis Obispo: mechanical engineering, HVAC concentration. That field sense is built into how the firm works, on every project and at every stage.</p>
+        <p class="note" style="margin-top:16px;font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:500"><span class="nw">B.S. Mechanical Engineering, HVAC</span> · <span class="nw">Cal Poly SLO</span></p>
+      </div>
+    </section>
+    <section class="sheet" data-sheet="M2.0" data-comment-target>
+      <div class="tag"><b>M2.0</b>Energy code</div>
+      <div>
+        <h2 class="big"><span class="soft">Building design starts with the energy code.</span><strong>We take the guesswork out.</strong></h2>
+        <p class="fine" style="margin-top:36px"><span>Walls</span><span>Roof</span><span>Windows</span><span>HVAC</span><span>Water heating</span><span>Lighting</span></p>
+        <p class="note">Title 24 sets these parameters before the design takes shape, and it changes every three years. A misread requirement or a flawed energy model costs the owner real money: oversized equipment, redesign, plan check delays. We interpret the code precisely and model it accurately, so architects design with confidence and owners pay only for what the building needs.</p>
+      </div>
+    </section>
+    <section class="sheet" data-sheet="M2.1" data-comment-target>
+      <div class="tag"><b>M2.1</b>Systems</div>
+      <div>
+        <h2 class="big"><span class="soft">Systems breathe, wear and age.</span><strong>Design for the care they will need.</strong></h2>
+        <p class="note">Equipment that can be reached. Parts that can be found. Controls the people in the building can understand.</p>
+      </div>
+    </section>
+    <section class="sheet" data-sheet="M3.0" data-comment-target>
+      <div class="tag"><b>M3.0</b>Commissioning</div>
+      <div>
+        <h2 class="big"><span class="soft">Drawings describe intent.</span><strong>Commissioning proves it.</strong></h2>
+        <p class="note">Led by a certified Building Commissioning Professional. Systems tested, documented and handed to the people who will run them.</p>
+      </div>
+    </section>
+    <section class="sheet" data-sheet="M4.0" data-comment-target>
+      <div class="tag"><b>M4.0</b>Scope</div>
+      <div>
+        <ul class="scope"><li>HVAC</li><li>Plumbing</li><li>Energy Code</li><li>Commissioning</li></ul>
+        <div class="fine"><span>K-12 · DSA</span><span>Healthcare · HCAI</span><span>Civic</span><span>Hospitality</span><span>Commercial</span></div>
+        <details>
+          <summary>Index of recent work</summary>
+          <p class="index"><span>Paso Robles Fire Station 3 Training</span> · <span>Los Banos City Hall Annex Building</span> · <span>Solvang Water Office Remodel</span> · <span>Baywood Park Water District Building Evaluation</span> · <span>Grover Beach Relocatables</span> · <span>South Fork Elementary School Phase 2</span> · <span>Dunn School Gymnasium Phase 1</span> · <span>CSUB Telecom HVAC</span> · <span>Tuolumne Me-Wuk Health Clinic</span> · <span>Belanger Medical Fresno Tenant Improvement</span> · <span>Mirelez Wellness Dental</span> · <span>Reedley Elderly Apartments</span> · <span>Sendero Commons</span> · <span>Silver Wings 5 &amp; 6</span> · <span>BAPS San Jose</span> · <span>Hume Lake ARK Expansion</span> · <span>Paso Robles Inn Fitness Building</span> · <span>Avila Lighthouse Fitness Remodel</span> · <span>Naval Inn</span> · <span>Vespera Bar Remodel</span> · <span>Lone Star Golf Lounge</span> · <span>Planet Fitness White Lane</span> · <span>Trilogy Pool Equipment Room</span> · <span>Community West Bank Tenant Improvement</span> · <span>Keisho Plaza Tenant Improvement</span> · <span>Booker Office Remodel</span> · <span>Dirty Bird Tenant Improvement</span> · <span>Proof &amp; Gather Bakery</span> · <span>Champs Catering Kitchen</span> · <span>Perfection Stainless Warehouse</span> · <span>Bonipak Employee Welfare Area</span> · <span>Lemoore Ranch Building</span></p>
+        </details>
+      </div>
+    </section>
+    <section class="sheet contact" data-sheet="M5.0" data-comment-target id="contact">
+      <div class="tag"><b>M5.0</b>Contact</div>
+      <div>
+        <h2 class="big" style="margin-bottom:48px"><span class="soft">Bring us in early.</span><strong>That is where the savings are.</strong></h2>
+        <p class="note" style="margin:-24px 0 40px">Knowledge from the field. Fees that make sense. A scope you can read in one sitting.</p>
+        <a href="mailto:irj@journey-eng.com">irj@journey-eng.com</a>
+        <a href="tel:+16613317520">661 331 7520</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="titleblock">
+    <div>Project<b>Journey Engineering, Inc.</b></div>
+    <div>Engineer<b>Ian Journey, P.E.</b></div>
+    <div>License<b>CA M36073</b></div>
+    <div>Location<b>Central Coast · Central Valley, California</b></div>
+    <div>Revision<b>Ongoing</b></div>
+  </footer>
+</div>
+
+<div class="sheetno" aria-hidden="true">Sheet <b id="sheetcur">M0.0</b> of M5.0</div>
+
+<script>
+(function(){
+  var cur=document.getElementById('sheetcur');
+  if(!('IntersectionObserver' in window)||!cur)return;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)cur.textContent=e.target.dataset.sheet;});},{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('[data-sheet]').forEach(function(s){io.observe(s);});
+})();
+</script>
+</body>
+</html>
