@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Email Signature</title>
+<style>
+body{margin:0;background:#f4f1ea;font-family:'Avenir Next',Avenir,'Segoe UI',Helvetica,Arial,sans-serif;color:#1e2b2c}
+.wrap{max-width:760px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:20px;color:#095256;margin:0 0 6px}
+p.lead{margin:0 0 24px;color:#3d6b6d;font-size:14px;line-height:1.5}
+form{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;background:#fff;border:1px solid #e8cfa3;border-radius:10px;padding:20px;margin-bottom:24px}
+@media(max-width:560px){form{grid-template-columns:1fr}}
+label{display:grid;gap:4px;font-size:12px;font-weight:600;color:#095256;letter-spacing:.04em;text-transform:uppercase}
+input{font:inherit;font-size:15px;padding:9px 10px;border:1px solid #d9c49c;border-radius:6px;text-transform:none;letter-spacing:0}
+.card{background:#fff;border:1px solid #e8cfa3;border-radius:10px;padding:28px 20px}
+.steps{font-size:14px;line-height:1.6;color:#3d6b6d;margin-top:20px}
+button{font:inherit;font-weight:600;background:#095256;color:#f5dfbb;border:0;border-radius:8px;padding:11px 18px;cursor:pointer;margin-top:16px}
+#msg{margin-left:10px;font-size:14px;color:#8a5a14}
+</style></head><body><div class="wrap">
+<h1>Journey Engineering email signature</h1>
+<p class="lead">Fill in your details, click Copy signature, then paste into Gmail on your computer: gear icon, See all settings, General, Signature, Create new. Set it as the default for new emails and replies, then Save Changes at the bottom.</p>
+<form id="f" onsubmit="return false">
+<label>Full name<input id="name" value="Ian Journey"></label>
+<label>Credentials (optional)<input id="cred" value="P.E." placeholder="P.E., EIT, BCxP"></label>
+<label>Title<input id="title" value="Founder &amp; Principal"></label>
+<label>Phone<input id="phone" value="661-331-7520"></label>
+<label style="grid-column:1/-1">Email<input id="email" value="irj@journey-eng.com"></label>
+</form>
+<div class="card"><div id="sig"></div></div>
+<button type="button" id="copy">Copy signature</button><span id="msg"></span>
+<p class="steps">If Copy doesn't work in your browser, drag-select the signature in the white box (from the logo through the last line) and press Ctrl+C or Cmd+C.</p>
+</div>
+<script>
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function render(){
+ var n=esc(document.getElementById('name').value.trim()),c=esc(document.getElementById('cred').value.trim()),t=esc(document.getElementById('title').value.trim()),
+ ph=document.getElementById('phone').value.trim(),em=esc(document.getElementById('email').value.trim()),tel=ph.replace(/[^0-9+]/g,'');
+ if(tel&&tel[0]!=='+')tel='+1'+tel;
+ var F="font-family:'Avenir Next',Avenir,'Segoe UI',Helvetica,Arial,sans-serif;";
+ var contact=[];
+ if(ph)contact.push('<a href="tel:'+tel+'" style="color:#095256;text-decoration:none;">'+esc(ph)+'</a>');
+ if(em)contact.push('<a href="mailto:'+em+'" style="color:#095256;text-decoration:none;">'+em+'</a>');
+ contact.push('<a href="https://journey-eng.com" style="color:#095256;text-decoration:none;font-weight:bold;">journey-eng.com</a>');
+ document.getElementById('sig').innerHTML=
+ '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;'+F+'"><tr>'+
+ '<td style="padding:0 16px 0 0;vertical-align:middle;"><a href="https://journey-eng.com" style="text-decoration:none;"><img src="https://journey-eng.com/assets/email-logo.png" width="180" height="71" alt="Journey Engineering" style="display:block;border:0;width:180px;height:71px;"></a></td>'+
+ '<td style="padding:2px 0 2px 16px;border-left:2px solid #E09F3E;vertical-align:middle;">'+
+ '<div style="font-size:15px;line-height:20px;font-weight:bold;color:#095256;">'+n+(c?', '+c:'')+'</div>'+
+ '<div style="font-size:13px;line-height:19px;color:#3D6B6D;">'+(t?t+' &middot; ':'')+'Journey Engineering, Inc.</div>'+
+ '<div style="font-size:13px;line-height:19px;color:#3D6B6D;padding-top:4px;">'+contact.join(' &middot; ')+'</div>'+
+ '<div style="font-size:12px;line-height:18px;color:#8A5A14;padding-top:4px;letter-spacing:0.3px;">Design for what comes after.</div>'+
+ '</td></tr></table>';
+}
+document.getElementById('f').addEventListener('input',render);render();
+document.getElementById('copy').addEventListener('click',function(){
+ var el=document.getElementById('sig'),msg=document.getElementById('msg');
+ var html=el.innerHTML,text=el.innerText;
+ if(navigator.clipboard&&window.ClipboardItem){
+  navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([text],{type:'text/plain'})})]).then(function(){msg.textContent='Copied. Paste into Gmail.';},fallback);
+ } else fallback();
+ function fallback(){var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand('copy');msg.textContent='Copied. Paste into Gmail.';}catch(e){msg.textContent='Press Ctrl+C or Cmd+C to copy the selection.';}}
+});
+</script></body></html>
